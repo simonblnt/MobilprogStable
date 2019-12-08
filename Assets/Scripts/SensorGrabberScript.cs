@@ -49,7 +49,8 @@ public class SensorGrabberScript : MonoBehaviour
 				
 				if(hit.collider.gameObject.GetComponent<Rigidbody2D>()!=null)
 				{
-					hit.collider.gameObject.GetComponent<Rigidbody2D>().velocity= new Vector2(transform.localScale.x,1)*throwforce;
+					var force = throwforce + (sensorForce* 10);
+					hit.collider.gameObject.GetComponent<Rigidbody2D>().velocity= new Vector2(transform.localScale.x,1) * force;
 				}
 			}
 			else
