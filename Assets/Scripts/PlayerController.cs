@@ -1,17 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
 
 	public float moveSpeed;
 	public float jumpForce;
-
-	public KeyCode left;
-	public KeyCode right;
-	public KeyCode jump;
-	public KeyCode throwThings;
 
 	private Rigidbody2D theRB;
 
@@ -35,19 +31,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		
+		var dirX = CrossPlatformInputManager.GetAxis("Horizontal") * moveSpeed;
+		
 		isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
 		
-        if(Input.GetKey(left))
+        if(dirX < 0)
 		{
 			theRB.velocity = new Vector2(-moveSpeed, theRB.velocity.y);
-		}else if(Input.GetKey(right))
+		}else if(dirX > 0)
 		{
 			theRB.velocity = new Vector2(moveSpeed, theRB.velocity.y);
 		}else {
 			theRB.velocity = new Vector2(0, theRB.velocity.y);
 		}
 
-		if(Input.GetKeyDown(jump) && isGrounded)
+		if(CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded)
 		{
 			theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
 		}
@@ -61,6 +60,5 @@ public class PlayerController : MonoBehaviour
 
 		anim.SetFloat("Speed", Mathf.Abs(theRB.velocity.x));
 		anim.SetBool("Grounded", isGrounded);
-
     }
 }
