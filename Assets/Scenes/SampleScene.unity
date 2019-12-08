@@ -681,8 +681,9 @@ GameObject:
   - component: {fileID: 368708785}
   - component: {fileID: 368708784}
   - component: {fileID: 368708783}
-  - component: {fileID: 368708782}
   - component: {fileID: 368708781}
+  - component: {fileID: 368708787}
+  - component: {fileID: 368708782}
   m_Layer: 8
   m_Name: Player2
   m_TagString: Untagged
@@ -718,17 +719,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 368708780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f5273a8d3524d34db8ef569087c51d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 66fc986480677254abeacc1ddc2f33e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  jumpForce: 20
-  groundCheckPoint: {fileID: 1316870831}
-  groundCheckRadius: 0.2
-  whatIsGround:
+  grabbed: 0
+  distance: 2
+  holdPoint: {fileID: 1503412751}
+  throwforce: 0
+  notgrabbed:
     serializedVersion: 2
-    m_Bits: 1
-  isGrounded: 0
+    m_Bits: 0
 --- !u!61 &368708783
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -837,9 +837,30 @@ Transform:
   m_LocalScale: {x: -0.35, y: 0.35, z: 1}
   m_Children:
   - {fileID: 1316870831}
+  - {fileID: 1503412751}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &368708787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368708780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd19a9995cc19e42adf70039e853981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  jumpForce: 20
+  groundCheckPoint: {fileID: 1316870831}
+  groundCheckRadius: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  isGrounded: 0
 --- !u!1 &475669776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,7 +1487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 301, y: -121}
+  m_AnchoredPosition: {x: 237.3, y: -95.7}
   m_SizeDelta: {x: 35, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542163646
@@ -1716,7 +1737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -265, y: -121}
+  m_AnchoredPosition: {x: -245.3, y: -101.3}
   m_SizeDelta: {x: 35, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &623620506
@@ -2446,7 +2467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 215, y: -121}
+  m_AnchoredPosition: {x: 192.5, y: -95.7}
   m_SizeDelta: {x: 35, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117795853
@@ -2589,6 +2610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1316870831}
+  - component: {fileID: 1316870832}
   m_Layer: 8
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -2610,6 +2632,25 @@ Transform:
   m_Father: {fileID: 368708786}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1316870832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316870830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fc986480677254abeacc1ddc2f33e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabbed: 0
+  distance: 2
+  holdPoint: {fileID: 0}
+  throwforce: 0
+  notgrabbed:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1316906060
 GameObject:
   m_ObjectHideFlags: 0
@@ -3127,7 +3168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -568, y: 72}
+  m_AnchoredPosition: {x: -598, y: 54.199997}
   m_SizeDelta: {x: 35, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1425953899
@@ -3334,6 +3375,36 @@ Transform:
   - {fileID: 1573449898}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1503412750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503412751}
+  m_Layer: 8
+  m_Name: HoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1503412751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503412750}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 368708786}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1513979064
 GameObject:
@@ -3890,6 +3961,7 @@ GameObject:
   - component: {fileID: 1746006765}
   - component: {fileID: 1746006766}
   - component: {fileID: 1746006767}
+  - component: {fileID: 1746006768}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Untagged
@@ -4055,7 +4127,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1746006760}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66fc986480677254abeacc1ddc2f33e9, type: 3}
   m_Name: 
@@ -4067,6 +4139,26 @@ MonoBehaviour:
   notgrabbed:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &1746006768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746006760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a600330324f6c0a4e945dfc35dbafc67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabbed: 0
+  distance: 2
+  holdPoint: {fileID: 1539568521}
+  throwforce: 8
+  notgrabbed:
+    serializedVersion: 2
+    m_Bits: 0
+  sensorForce: 0
 --- !u!1 &1867337126
 GameObject:
   m_ObjectHideFlags: 0
